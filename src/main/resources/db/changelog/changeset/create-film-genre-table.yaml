@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+#      runAlways: true
+#      runOnChange: true
+      id: create-film-genre
+      author: Vadim Kulkov
+      changes:
+        - createTable:
+            tableName: film_genre
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: film_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: genre_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: film_id
+            baseTableName: film_genre
+            baseTableSchemaName: main
+            constraintName: fk_film_genre_film
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: film
+            referencedTableSchemaName: main
+        - addForeignKeyConstraint:
+            baseColumnNames: genre_id
+            baseTableName: film_genre
+            baseTableSchemaName: main
+            constraintName: fk_film_genre_genre
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: genre
+            referencedTableSchemaName: main

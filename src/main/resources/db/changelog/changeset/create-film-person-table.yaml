@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+#      runAlways: true
+#      runOnChange: true
+      id: create-film-person
+      author: Vadim Kulkov
+      changes:
+        - createTable:
+            tableName: film_person
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: film_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: person_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  remarks: actor/producer
+                  name: type
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: film_id
+            baseTableName: film_person
+            baseTableSchemaName: main
+            constraintName: fk_film_person_film
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: film
+            referencedTableSchemaName: main
+        - addForeignKeyConstraint:
+            baseColumnNames: person_id
+            baseTableName: film_person
+            baseTableSchemaName: main
+            constraintName: fk_film_person_person
+            onDelete: RESTRICT
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: person
+            referencedTableSchemaName: main

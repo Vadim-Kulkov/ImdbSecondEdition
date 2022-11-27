@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+#      runAlways: true
+#      runOnChange: true
+      id: create-country
+      author: Vadim Kulkov
+      changes:
+        - createTable:
+            tableName: country
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
