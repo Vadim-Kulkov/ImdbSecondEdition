@@ -20,3 +20,9 @@ spring:
     user: postgres
     password: e0VdC~0wO@JHfHZ$CS56RbY1o|DtKfTqpiiRL~O#vCKaCdwfX207}
     change-log: db/changelog/changelog-master.yaml
+  mvc:
+    view:
+      suffix: .html
+  devtools:
+    livereload:
+      enabled: true
