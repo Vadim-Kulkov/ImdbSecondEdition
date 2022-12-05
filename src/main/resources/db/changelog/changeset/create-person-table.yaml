@@ -1,7 +1,5 @@
 databaseChangeLog:
   - changeSet:
-#      runAlways: true
-#      runOnChange: true
       id: create-person
       author: Vadim Kulkov
       changes:

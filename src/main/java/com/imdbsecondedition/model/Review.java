@@ -10,10 +10,12 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "country")
-public class Genre {
+@Table(name = "review")
+public class Review {
 
     private Long id;
-    private String name;
+    private Long film;
+    private Long reviewer;
+    private String title;
     private String description;
 }

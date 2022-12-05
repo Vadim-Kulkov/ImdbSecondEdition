@@ -1,7 +1,5 @@
 databaseChangeLog:
   - changeSet:
-#      runAlways: true
-#      runOnChange: true
       id: create-genre
       author: Vadim Kulkov
       changes:

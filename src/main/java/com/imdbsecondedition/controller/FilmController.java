@@ -1,7 +1,7 @@
 package com.imdbsecondedition.controller;
 
-import com.imdbsecondedition.dao.GenreDao;
-import com.imdbsecondedition.model.Genre;
+import com.imdbsecondedition.dao.FilmDao;
+import com.imdbsecondedition.model.Film;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,44 +10,44 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController()
-@RequestMapping("/genres")
-public class GenreController {
+@RequestMapping("/films")
+public class FilmController {
 
-    private final GenreDao genreDao;
+    private final FilmDao filmDao;
 
     @Autowired
-    public GenreController(GenreDao genreDao) {
-        this.genreDao = genreDao;
+    public FilmController(FilmDao filmDao) {
+        this.filmDao = filmDao;
     }
 
     @GetMapping("/all")
-    public List<Genre> getAll() {
-        return genreDao.findAll();
+    public List<Film> getAll() {
+        return filmDao.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Genre findById(@PathVariable("id") Long id) {
-        return genreDao.findById(id);
+    public Film findById(@PathVariable("id") Long id) {
+        return filmDao.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public int create(@RequestBody Genre resource) {
+    public int create(@RequestBody Film resource) {
         Objects.requireNonNull(resource);
-        return genreDao.create(resource);
+        return filmDao.create(resource);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") long id, @RequestBody Genre resource) {
+    public void update(@PathVariable("id") long id, @RequestBody Film resource) {
         Objects.requireNonNull(resource);
         resource.setId(id);
-        genreDao.update(resource);
+        filmDao.update(resource);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") long id) {
-        genreDao.deleteById(id);
+        filmDao.deleteById(id);
     }
 }

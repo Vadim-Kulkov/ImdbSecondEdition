@@ -13,6 +13,6 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table(name = "country")
 public class Country {
 
-    private long id;
+    private Long id;
     private String name;
 }

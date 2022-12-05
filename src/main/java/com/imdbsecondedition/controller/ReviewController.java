@@ -1,7 +1,7 @@
 package com.imdbsecondedition.controller;
 
-import com.imdbsecondedition.dao.GenreDao;
-import com.imdbsecondedition.model.Genre;
+import com.imdbsecondedition.dao.ReviewDao;
+import com.imdbsecondedition.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,44 +10,44 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController()
-@RequestMapping("/genres")
-public class GenreController {
+@RequestMapping("/reviews")
+public class ReviewController {
 
-    private final GenreDao genreDao;
+    private final ReviewDao reviewDao;
 
     @Autowired
-    public GenreController(GenreDao genreDao) {
-        this.genreDao = genreDao;
+    public ReviewController(ReviewDao reviewDao) {
+        this.reviewDao = reviewDao;
     }
 
     @GetMapping("/all")
-    public List<Genre> getAll() {
-        return genreDao.findAll();
+    public List<Review> getAll() {
+        return reviewDao.findAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Genre findById(@PathVariable("id") Long id) {
-        return genreDao.findById(id);
+    public Review findById(@PathVariable("id") Long id) {
+        return reviewDao.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public int create(@RequestBody Genre resource) {
+    public int create(@RequestBody Review resource) {
         Objects.requireNonNull(resource);
-        return genreDao.create(resource);
+        return reviewDao.create(resource);
     }
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") long id, @RequestBody Genre resource) {
+    public void update(@PathVariable("id") long id, @RequestBody Review resource) {
         Objects.requireNonNull(resource);
         resource.setId(id);
-        genreDao.update(resource);
+        reviewDao.update(resource);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") long id) {
-        genreDao.deleteById(id);
+        reviewDao.deleteById(id);
     }
 }

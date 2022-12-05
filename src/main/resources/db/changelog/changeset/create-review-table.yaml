@@ -1,7 +1,5 @@
 databaseChangeLog:
   - changeSet:
-#      runAlways: true
-#      runOnChange: true
       id: create-review
       author: Vadim Kulkov
       changes:
@@ -25,6 +23,12 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
+              - column:
+                  name: title
+                  type: varchar
+              - column:
+                  name: description
+                  type: varchar
         - addForeignKeyConstraint:
             baseColumnNames: film
             baseTableName: review

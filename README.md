@@ -1,12 +1,13 @@
 # Applied programming, university course
-My labs, each work is in a separate subpackage.<br />
-Technical tasks are located in resources/docs<br />
+Imdb: "Second edition"<br />
+Educational project <br />
+CRUD REST-API application<br />
 
 Technologies
 ======
 <li>Java</li>
-<li>PostgreSql</li>
+<li>Postgre Sql</li>
+<li>Spring boot</li>
+<li>Spring Data JDBC</li>
+<li>Spring Web</li>
 <li>Liquibase</li>
-<li>HTML</li>
-<li>CSS</li>
-<li>JavaScript</li>

@@ -10,6 +10,5 @@ public class ImdbSecondEditionApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ImdbSecondEditionApplication.class, args);
-
     }
 }
