@@ -27,6 +27,9 @@ databaseChangeLog:
               - column:
                   name: description
                   type: varchar
+              - column:
+                  name: image
+                  type: varchar
         - addForeignKeyConstraint:
             baseColumnNames: country
             baseTableName: film
