@@ -1,53 +1,66 @@
 package com.imdbsecondedition.controller;
 
-import com.imdbsecondedition.dao.FilmDao;
+import com.imdbsecondedition.model.Country;
 import com.imdbsecondedition.model.Film;
+import com.imdbsecondedition.repository.CountryRepository;
+import com.imdbsecondedition.repository.FilmRepository;
+import com.imdbsecondedition.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
+
+import java.util.Set;
 
 @RestController()
 @RequestMapping("/films")
 public class FilmController {
 
-    private final FilmDao filmDao;
+    private final FilmRepository filmRepository;
+    private final GenreRepository genreRepository;
+    private final CountryRepository countryRepository;
 
     @Autowired
-    public FilmController(FilmDao filmDao) {
-        this.filmDao = filmDao;
+    public FilmController(FilmRepository filmRepository, GenreRepository genreRepository, CountryRepository countryRepository) {
+        this.filmRepository = filmRepository;
+        this.genreRepository = genreRepository;
+        this.countryRepository = countryRepository;
     }
 
-    @GetMapping("/all")
-    public List<Film> getAll() {
-        return filmDao.findAll();
+//    @GetMapping("/all")
+//    public List<Film> getAll() {
+//        return filmDao.findAll();
+//    }
+
+//    @GetMapping(value = "/{id}")
+//    public Film findById(@PathVariable("id") Long id) {
+//        return filmDao.findById(id);
+//    }
+
+    @GetMapping(value = "/byGenre/{genreId}")
+    public Set<Film> findAllByGenre(@PathVariable(value = "genreId") Long genreId) {
+        return null;
     }
 
-    @GetMapping(value = "/{id}")
-    public Film findById(@PathVariable("id") Long id) {
-        return filmDao.findById(id);
-    }
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public int create(@RequestBody Film resource) {
+//        Objects.requireNonNull(resource);
+//        return filmDao.create(resource);
+//    }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public int create(@RequestBody Film resource) {
-        Objects.requireNonNull(resource);
-        return filmDao.create(resource);
-    }
-
-    @PutMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable("id") long id, @RequestBody Film resource) {
-        Objects.requireNonNull(resource);
-        resource.setId(id);
-        filmDao.update(resource);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") long id) {
-        filmDao.deleteById(id);
-    }
+//    @PutMapping(value = "/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void update(@PathVariable("id") long id, @RequestBody Film resource) {
+//        Objects.requireNonNull(resource);
+//        resource.setId(id);
+//        filmDao.update(resource);
+//    }
+//
+//    @DeleteMapping(value = "/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void delete(@PathVariable("id") long id) {
+//        filmDao.deleteById(id);
+//    }
 }
