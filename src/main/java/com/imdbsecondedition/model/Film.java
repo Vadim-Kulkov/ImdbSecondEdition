@@ -1,5 +1,6 @@
 package com.imdbsecondedition.model;
 
+import com.imdbsecondedition.model.reference.GenreRef;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ public class Film {
         genres.add(new GenreRef(genre.getId()));
     }
 
-    public Set<Long> getGenreIds() {
+    public Set<Long> getGenreIds()   {
         return genres.stream().map(GenreRef::getId).collect(Collectors.toSet());
     }
 

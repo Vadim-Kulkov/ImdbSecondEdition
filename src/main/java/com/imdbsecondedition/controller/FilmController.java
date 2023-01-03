@@ -2,6 +2,7 @@ package com.imdbsecondedition.controller;
 
 import com.imdbsecondedition.model.Country;
 import com.imdbsecondedition.model.Film;
+import com.imdbsecondedition.model.Genre;
 import com.imdbsecondedition.repository.CountryRepository;
 import com.imdbsecondedition.repository.FilmRepository;
 import com.imdbsecondedition.repository.GenreRepository;
@@ -10,7 +11,6 @@ import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-
 import java.util.Set;
 
 @RestController()
@@ -40,7 +40,18 @@ public class FilmController {
 
     @GetMapping(value = "/byGenre/{genreId}")
     public Set<Film> findAllByGenre(@PathVariable(value = "genreId") Long genreId) {
-        return null;
+        Country country = Country.create("USA");
+        country = countryRepository.save(country);
+
+        Film film = Film.create("Movie1", AggregateReference.to(country.getId()), LocalDate.now(), "..", null, null);
+        Genre genre = Genre.create("Horror", "Horror genre", null);
+
+        filmRepository.save(film);
+        genre = genreRepository.save(genre);
+        film.addGenre(genre);
+        filmRepository.save(film);
+
+        return filmRepository.findByGenreId(genreId);
     }
 
 //    @PostMapping

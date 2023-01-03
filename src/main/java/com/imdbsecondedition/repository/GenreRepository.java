@@ -11,8 +11,4 @@ import java.util.Set;
 
 @Repository
 public interface GenreRepository extends CrudRepository<Genre, Long> {
-
-
-    @Query("select f.* from film f join film_genre fg on f.id = fg.film_id where fg.genre_id = :id")
-    Set<Film> findByFilmId(@Param("id") Long id);
 }
