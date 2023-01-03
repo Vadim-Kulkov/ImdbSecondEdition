@@ -1,5 +1,6 @@
-package com.imdbsecondedition.model;
+package com.imdbsecondedition.model.reference;
 
+import com.imdbsecondedition.model.Genre;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;

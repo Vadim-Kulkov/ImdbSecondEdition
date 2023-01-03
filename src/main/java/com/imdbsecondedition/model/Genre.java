@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
@@ -12,6 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,10 +27,10 @@ public class Genre {
     private String name;
     private String description;
     @MappedCollection(idColumn = "genre_id")
-    private Set<Film> films = new HashSet<>();
+    private Set<AggregateReference<Film, Long>> films;
 
     public static Genre create(String name, String description, Set<Film> films) {
-        return new Genre(null, name, description, films);
+        return new Genre(null, name, description, ));
     }
 
     @Override
