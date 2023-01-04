@@ -1,37 +1,31 @@
 package com.imdbsecondedition.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.jdbc.core.mapping.AggregateReference;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.*;
 
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Entity
 @Table(name = "country", schema = "main")
 public class Genre {
 
     @Id
+    @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
-    @MappedCollection(idColumn = "genre_id")
-    private Set<AggregateReference<Film, Long>> films;
 
-    public static Genre create(String name, String description, Set<Film> films) {
-        return new Genre(null, name, description, ));
-    }
+    private String name;
+
+    private String description;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Set<FilmGenre> films;
 
     @Override
     public boolean equals(Object o) {
@@ -44,16 +38,5 @@ public class Genre {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Genre{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", films=").append(films);
-        sb.append('}');
-        return sb.toString();
     }
 }

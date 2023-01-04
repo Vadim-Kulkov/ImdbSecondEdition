@@ -1,30 +1,34 @@
 package com.imdbsecondedition.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@Entity
 @Table(name = "review", schema = "main")
 public class Review {
 
     @Id
+    @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Film film;
-    private Person reviewer;
-    private String title;
-    private String description;
 
-    public static Review create(Film film, Person reviewer, String title, String description) {
-        return new Review(null, film, reviewer, title, description);
-    }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "film", nullable = false)
+    private Film film;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Person reviewer;
+
+    private String title;
+
+    private String description;
 
     @Override
     public boolean equals(Object o) {
