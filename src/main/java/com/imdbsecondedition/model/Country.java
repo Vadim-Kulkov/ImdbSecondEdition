@@ -1,6 +1,5 @@
 package com.imdbsecondedition.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +19,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Override

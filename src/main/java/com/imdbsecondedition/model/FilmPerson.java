@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "film_genre", schema = "main")
-public class FilmGenre {
+@Table(name = "film_person", schema = "main")
+public class FilmPerson {
 
     @Id
     @Column(unique = true, nullable = false)
@@ -23,6 +23,9 @@ public class FilmGenre {
     Film film;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "genre_id")
-    Genre genre;
+    @JoinColumn(name = "person_id")
+    Person person;
+
+    @Column(name = "type")
+    Boolean type;
 }

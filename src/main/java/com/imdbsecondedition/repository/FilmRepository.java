@@ -1,20 +1,18 @@
 package com.imdbsecondedition.repository;
 
 import com.imdbsecondedition.model.Film;
-import liquibase.pro.packaged.T;
-import org.springframework.data.jdbc.repository.query.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import com.imdbsecondedition.model.FilmGenre;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.Set;
 
 @Repository
-public interface FilmRepository extends CrudRepository<Film, Long> {
+@Transactional
+public interface FilmRepository extends JpaRepository<Film, Long> {
 
-    @Query("select f.* from film f join film_genre fg on f.id = fg.film_id where fg.genre_id = :id")
-    Set<Film> findByGenreId(@Param("id") Long id);
-
-    @Query("update film set :property = :newValue where id = :id")
-    void update(@Param("id") Long id, @Param("property") String property, @Param("newValue") T newValue);
+    Set<FilmGenre> findAllByGenresIn(Collection<FilmGenre> genres);
 }

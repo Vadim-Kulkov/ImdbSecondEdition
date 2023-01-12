@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,22 +21,34 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "patronymic")
     private String patronymic;
 
+    @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "death_date")
     private LocalDate deathDate;
 
+    @Column(name = "gender")
     private Boolean gender;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "home_country")
     private Country homeCountry;
 
+    @Column(name = "biography")
     private String biography;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Set<FilmPerson> films;
 
     @Override
     public boolean equals(Object o) {

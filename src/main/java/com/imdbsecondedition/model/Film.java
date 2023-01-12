@@ -1,9 +1,12 @@
 package com.imdbsecondedition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,18 +24,23 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Country country;
 
+    @Column(name = "release_date")
     private LocalDate releaseDate;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "image")
     private String image;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<FilmGenre> genres;
@@ -40,6 +48,10 @@ public class Film {
     @ToString.Exclude
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Review> reviews;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "film", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<FilmPerson> persons;
 
     @Override
     public boolean equals(Object o) {

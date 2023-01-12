@@ -21,7 +21,7 @@ spring:
     password: e0VdC~0wO@JHfHZ$CS56RbY1o|DtKfTqpiiRL~O#vCKaCdwfX207}
     change-log: db/changelog/changelog-master.yaml
   jpa:
-    database-platform: org.hibernate.dialiect.postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
       ddl-auto: none
   devtools:

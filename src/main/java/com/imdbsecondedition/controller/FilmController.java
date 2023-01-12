@@ -1,17 +1,16 @@
 package com.imdbsecondedition.controller;
 
-import com.imdbsecondedition.model.Country;
 import com.imdbsecondedition.model.Film;
-import com.imdbsecondedition.model.Genre;
 import com.imdbsecondedition.repository.CountryRepository;
+import com.imdbsecondedition.repository.FilmGenreRepository;
 import com.imdbsecondedition.repository.FilmRepository;
 import com.imdbsecondedition.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jdbc.core.mapping.AggregateReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
+import java.util.Objects;
 
 @RestController()
 @RequestMapping("/films")
@@ -20,58 +19,49 @@ public class FilmController {
     private final FilmRepository filmRepository;
     private final GenreRepository genreRepository;
     private final CountryRepository countryRepository;
+    private final FilmGenreRepository filmGenreRepository;
 
     @Autowired
-    public FilmController(FilmRepository filmRepository, GenreRepository genreRepository, CountryRepository countryRepository) {
+    public FilmController(FilmRepository filmRepository, GenreRepository genreRepository, CountryRepository countryRepository, FilmGenreRepository filmGenreRepository) {
         this.filmRepository = filmRepository;
         this.genreRepository = genreRepository;
         this.countryRepository = countryRepository;
+        this.filmGenreRepository = filmGenreRepository;
     }
 
-//    @GetMapping("/all")
-//    public List<Film> getAll() {
-//        return filmDao.findAll();
-//    }
-
-//    @GetMapping(value = "/{id}")
-//    public Film findById(@PathVariable("id") Long id) {
-//        return filmDao.findById(id);
-//    }
-
-    @GetMapping(value = "/byGenre/{genreId}")
-    public Set<Film> findAllByGenre(@PathVariable(value = "genreId") Long genreId) {
-        Country country = Country.create("USA");
-        country = countryRepository.save(country);
-
-        Film film = Film.create("Movie1", AggregateReference.to(country.getId()), LocalDate.now(), "..", null, null);
-        Genre genre = Genre.create("Horror", "Horror genre", null);
-
-        filmRepository.save(film);
-        genre = genreRepository.save(genre);
-        film.addGenre(genre);
-        filmRepository.save(film);
-
-        return filmRepository.findByGenreId(genreId);
+    @GetMapping("/all")
+    public List<Film> getAll() {
+        return filmRepository.findAll();
     }
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public int create(@RequestBody Film resource) {
-//        Objects.requireNonNull(resource);
-//        return filmDao.create(resource);
+    @GetMapping(value = "/{id}")
+    public Film findById(@PathVariable("id") Long id) {
+        return filmRepository.findById(id).orElse(null);
+    }
+
+//    @GetMapping(value = "/byGenre/{genreId}")
+//    public Genre findAllByGenre(@PathVariable(value = "genreId") Long genreId) {
+//        return genreRepository.findById(genreId).get();
 //    }
 
-//    @PutMapping(value = "/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void update(@PathVariable("id") long id, @RequestBody Film resource) {
-//        Objects.requireNonNull(resource);
-//        resource.setId(id);
-//        filmDao.update(resource);
-//    }
-//
-//    @DeleteMapping(value = "/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void delete(@PathVariable("id") long id) {
-//        filmDao.deleteById(id);
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public long create(@RequestBody Film resource) {
+        Objects.requireNonNull(resource);
+        return filmRepository.save(resource).getId();
+    }
+
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@PathVariable("id") long id, @RequestBody Film resource) {
+        Objects.requireNonNull(resource);
+        resource.setId(id);
+        filmRepository.save(resource);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("id") long id) {
+        filmRepository.deleteById(id);
+    }
 }

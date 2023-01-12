@@ -1,5 +1,7 @@
 package com.imdbsecondedition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "country", schema = "main")
+@Table(name = "genre", schema = "main")
 public class Genre {
 
     @Id
@@ -19,10 +21,13 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<FilmGenre> films;

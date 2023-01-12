@@ -1,13 +1,15 @@
 package com.imdbsecondedition.repository;
 
-import com.imdbsecondedition.model.Film;
 import com.imdbsecondedition.model.Genre;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
-public interface GenreRepository extends CrudRepository<Genre, Long> {
+@Transactional
+public interface GenreRepository extends JpaRepository<Genre, Long> {
+
+    Optional<Genre> findById(Long id);
 }
