@@ -14,6 +14,7 @@ import java.util.Objects;
 
 @RestController()
 @RequestMapping("/films")
+@CrossOrigin
 public class FilmController {
 
     private final FilmRepository filmRepository;

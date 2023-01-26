@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController()
+@CrossOrigin
 @RequestMapping("/persons")
 public class PersonController {
 
@@ -49,5 +50,15 @@ public class PersonController {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") long id) {
         personRepository.deleteById(id);
+    }
+
+    @GetMapping(value = "/producersByFilm/{id}")
+    public List<Person> getProducersByFilm(@PathVariable("id") long id) {
+        return personRepository.findAllProducersByFilm(id);
+    }
+
+    @GetMapping(value = "/actorsByFilm/{id}")
+    public List<Person> getActorsByFilm(@PathVariable("id") long id) {
+        return personRepository.findAllActorsByFilm(id);
     }
 }

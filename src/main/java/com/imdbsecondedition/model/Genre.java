@@ -1,7 +1,6 @@
 package com.imdbsecondedition.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,12 +26,14 @@ public class Genre {
     @Column(name = "description")
     private String description;
 
-    @JsonIgnore
+    @JsonBackReference
     @ToString.Exclude
     @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<FilmGenre> films;
 
-    @Override
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

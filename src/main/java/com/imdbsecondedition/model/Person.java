@@ -1,6 +1,8 @@
 package com.imdbsecondedition.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -46,6 +48,8 @@ public class Person {
     @Column(name = "biography")
     private String biography;
 
+
+    @JsonBackReference
     @ToString.Exclude
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<FilmPerson> films;

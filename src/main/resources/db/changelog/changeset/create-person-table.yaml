@@ -29,8 +29,6 @@ databaseChangeLog:
               - column:
                   name: birth_date
                   type: date
-                  constraints:
-                    nullable: false
               - column:
                   remarks: null if alive
                   name: death_date
@@ -39,8 +37,6 @@ databaseChangeLog:
                   remarks: male/female
                   name: gender
                   type: boolean
-                  constraints:
-                    nullable: false
               - column:
                   name: home_country
                   type: bigint
