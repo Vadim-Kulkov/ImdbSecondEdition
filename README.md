@@ -1,13 +1,17 @@
-# Applied programming, university course
-Imdb: "Second edition"<br />
+# Coursework
+Imdb: Second edition<br />
 Educational project <br />
-CRUD REST-API application<br />
+REST API application with web-interface(src/main/ui)<br />
 
 Technologies
 ======
 <li>Java</li>
 <li>Postgre Sql</li>
 <li>Spring boot</li>
-<li>Spring Data JDBC</li>
-<li>Spring Web</li>
+<li>Spring Data JPA</li>
+<li>Spring MVC</li>
 <li>Liquibase</li>
+<li>HTML</li>
+<li>CSS</li>
+<li>Vue.js</li>
+<li>Vuetify</li>
