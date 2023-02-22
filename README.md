@@ -18,7 +18,7 @@ Technologies
    <li>Liquibase</li>
       </ul>
           </li>
-      <li>Client:
+      <li>Client
       <ul>
 <li>HTML</li>
 <li>CSS</li>
